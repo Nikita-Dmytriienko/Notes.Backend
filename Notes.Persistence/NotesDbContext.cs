@@ -11,7 +11,7 @@ using Notes.Persistence.EntityTypeConfigurations;
 
 namespace Notes.Persistence
 {
-    internal class NotesDbContext : DbContext, INotesDbContext
+    public class NotesDbContext : DbContext, INotesDbContext
     {
         public DbSet<Note> Notes { get; set; }
         public NotesDbContext(DbContextOptions<NotesDbContext> options):base (options) { }
