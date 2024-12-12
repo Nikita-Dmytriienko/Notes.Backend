@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MediatR;
 using Notes.Application.Interfaces;
+using Notes.Domain;
 
 
 namespace Notes.Application.Notes.Commands.CreateNote
@@ -24,7 +25,8 @@ namespace Notes.Application.Notes.Commands.CreateNote
                 Title = request.Title,
                 Details = request.Details,
                 Id = Guid.NewGuid(),
-                CreationDate = null
+                CreationDate = DateTime.Now,
+                EditDate=null
             };
 
             await _dbContext.Notes.AddAsync(note, cancellationToken);
