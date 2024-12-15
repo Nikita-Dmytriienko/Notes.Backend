@@ -10,9 +10,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Notes.Application.Notes.Commands.UpdateNote
 {
-    public class UpdateNoteCommandHandler : IRequestHandler<UpdateNoteCommand>
+    public class UpdateNoteCommandHandler
+        : IRequestHandler<UpdateNoteCommand>
     {
-        private readonly INotesDbContext dbContext;
+        private readonly INotesDbContext _dbContext;
 
         public UpdateNoteCommandHandler(INotesDbContext dbContext) =>
             _dbContext = dbContext;
@@ -21,7 +22,11 @@ namespace Notes.Application.Notes.Commands.UpdateNote
             CancellationToken cancellationToken)
         {
             var entity =
-                await _dbContext.Notes.FirstOrDefaultAsync(
+                await _dbContext.Notes.FirstOrDefaultAsync(note => note.Id == request.Id, cancellationToken);
+            if (entity == null || entity.UserId != request.UserId)
+            {
+
+            }
             return Unit.Value;
         }
 
