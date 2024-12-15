@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using MediatR;
 using Notes.Application.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Notes.Application.Common.Exceptions;
+using Notes.Domain;
 
 namespace Notes.Application.Notes.Commands.UpdateNote
 {
@@ -25,8 +27,13 @@ namespace Notes.Application.Notes.Commands.UpdateNote
                 await _dbContext.Notes.FirstOrDefaultAsync(note => note.Id == request.Id, cancellationToken);
             if (entity == null || entity.UserId != request.UserId)
             {
-
+                throw new NotFoundException(nameof(Note), request. Id);
             }
+            entity.Details=request.Details;
+            entity.Title=request.Title;
+            entity.EditDate=DateTime.Now;
+
+            await _dbContext.SaveChangesAsync(cancellationToken);
             return Unit.Value;
         }
 
