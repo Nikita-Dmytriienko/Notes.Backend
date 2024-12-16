@@ -30,5 +30,10 @@ namespace Notes.Application.Notes.Commands.DeleteCommand
             await _dbContext.SaveChangesAsync(cancellationToken);
             return Unit.Value;
         }
+
+        Task IRequestHandler<DeleteNoteCommand>.Handle(DeleteNoteCommand request, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

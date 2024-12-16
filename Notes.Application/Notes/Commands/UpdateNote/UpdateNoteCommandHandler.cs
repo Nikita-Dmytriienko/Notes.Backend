@@ -12,8 +12,7 @@ using Notes.Domain;
 
 namespace Notes.Application.Notes.Commands.UpdateNote
 {
-    public class UpdateNoteCommandHandler
-        : IRequestHandler<UpdateNoteCommand>
+    public class UpdateNoteCommandHandler : IRequestHandler<UpdateNoteCommand>
     {
         private readonly INotesDbContext _dbContext;
 
@@ -23,8 +22,7 @@ namespace Notes.Application.Notes.Commands.UpdateNote
         public async Task<Unit> Handle(UpdateNoteCommand request,
             CancellationToken cancellationToken)
         {
-            var entity =
-                await _dbContext.Notes.FirstOrDefaultAsync(note => note.Id == request.Id, cancellationToken);
+            var entity = await _dbContext.Notes.FirstOrDefaultAsync(note => note.Id == request.Id, cancellationToken);
             if (entity == null || entity.UserId != request.UserId)
             {
                 throw new NotFoundException(nameof(Note), request. Id);
@@ -37,5 +35,9 @@ namespace Notes.Application.Notes.Commands.UpdateNote
             return Unit.Value;
         }
 
+        Task IRequestHandler<UpdateNoteCommand>.Handle(UpdateNoteCommand request, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

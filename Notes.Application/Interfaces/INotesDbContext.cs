@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Notes.Domain;
+using System.Threading;
 
 namespace Notes.Application.Interfaces
 {
@@ -12,6 +13,5 @@ namespace Notes.Application.Interfaces
     {
         DbSet<Note> Notes { get; set; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
-             
     }
 }
