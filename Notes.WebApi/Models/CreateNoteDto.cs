@@ -12,9 +12,9 @@ namespace Notes.WebApi.Models
         {
             profile.CreateMap<CreateNoteDto, CreateNoteCommand>()
             .ForMember(noteCommand => noteCommand.Title,
-            opt => opt.MapFrom(noteDto => noteDto.Title))
+                opt => opt.MapFrom(noteDto => noteDto.Title))
             .ForMember(noteCommand => noteCommand.Details,
-            opt => opt.MapFrom(noteDto => noteDto.Details));
+                opt => opt.MapFrom(noteDto => noteDto.Details));
         }
     }
 }
