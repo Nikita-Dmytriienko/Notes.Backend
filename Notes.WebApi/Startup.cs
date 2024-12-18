@@ -1,24 +1,15 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Configuration;
-using System.Reflection;
-using Notes.Application;
+﻿using Notes.Application;
 using Notes.Application.Common.Mappings;
 using Notes.Application.Interfaces;
 using Notes.Persistence;
-using MediatR;
-using AutoMapper.Features;
-using AutoMapper;
+using System.Reflection;
 
 namespace Notes.WebApi
 {
     public class Startup
     {
         public IConfiguration Configuration { get; set; }
-        public Startup(IConfiguration configuration) =>Configuration= configuration;
+        public Startup(IConfiguration configuration) => Configuration = configuration;
 
         public void ConfigureServices(IServiceCollection services)
         {
