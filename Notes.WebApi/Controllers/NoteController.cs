@@ -11,6 +11,7 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Notes.WebApi.Controllers
 {
+    [Route("api/[controller]")]
     public class NoteController : BaseController
     {
         private readonly IMapper _mapper;

@@ -34,10 +34,5 @@ namespace Notes.Application.Notes.Commands.UpdateNote
             await _dbContext.SaveChangesAsync(cancellationToken);
             return Unit.Value;
         }
-
-        Task IRequestHandler<UpdateNoteCommand>.Handle(UpdateNoteCommand request, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
