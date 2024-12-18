@@ -11,6 +11,7 @@ namespace Notes.WebApi
         public IConfiguration Configuration { get; set; }
         public Startup(IConfiguration configuration) => Configuration = configuration;
 
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddAutoMapper(config =>
@@ -19,8 +20,8 @@ namespace Notes.WebApi
                 config.AddProfile(new AssemblyMappingProfile(typeof(INotesDbContext).Assembly));
             });
 
-            services.AddApplication();
             services.AddPersistence(Configuration);
+            services.AddApplication();
             services.AddControllers();
 
             services.AddCors(options =>

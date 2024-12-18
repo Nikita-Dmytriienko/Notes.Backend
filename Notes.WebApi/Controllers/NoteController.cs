@@ -1,13 +1,13 @@
 ﻿using AutoMapper;
-using MediatR;
+using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Notes.Application.Notes.Commands.CreateNote;
-using Notes.Application.Notes.Commands.DeleteCommand;
-using Notes.Application.Notes.Commands.UpdateNote;
-using Notes.Application.Notes.Queries.GetNoteDetails;
 using Notes.Application.Notes.Queries.GetNoteList;
+using Notes.Application.Notes.Queries.GetNoteDetails;
+using Notes.Application.Notes.Commands.CreateNote;
+using Notes.Application.Notes.Commands.UpdateNote;
+using Notes.Application.Notes.Commands.DeleteCommand;
 using Notes.WebApi.Models;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Notes.WebApi.Controllers
 {
@@ -25,7 +25,6 @@ namespace Notes.WebApi.Controllers
             {
                 UserId = UserId
             };
-
             var vm = await Mediator.Send(query);
             return Ok(vm);
         }

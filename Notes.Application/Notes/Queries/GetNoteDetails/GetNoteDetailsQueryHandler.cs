@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Notes.Application.Common.Exceptions;
 using Notes.Application.Interfaces;
 using Notes.Domain;
-using Notes;
 
 namespace Notes.Application.Notes.Queries.GetNoteDetails
 {
@@ -19,22 +12,53 @@ namespace Notes.Application.Notes.Queries.GetNoteDetails
         private readonly INotesDbContext _dbContext;
         private readonly IMapper _mapper;
 
-        public GetNoteDetailsQueryHandler(INotesDbContext dbContext,
-            IMapper mapper) => (_dbContext, _mapper) = (dbContext, mapper);
-
-        public async Task<NoteDetailsVm> Handle(GetNoteDetailsQuery request,
-            CancellationToken cancellationToken)
+        public GetNoteDetailsQueryHandler(INotesDbContext dbContext, IMapper mapper)
         {
-            var entity = await _dbContext.Notes.FirstOrDefaultAsync(note => note.Id == request.Id, cancellationToken);
+            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+        }
+
+        public async Task<NoteDetailsVm> Handle(GetNoteDetailsQuery request, CancellationToken cancellationToken)
+        {
+            /*var entity = await _dbContext.Notes.FirstOrDefaultAsync(note => note.Id == request.Id, cancellationToken);
 
             if (entity == null || entity.UserId!=request.UserId)
             {
                 throw new NotFoundException(nameof(Note),request.Id);
             }
+            return _mapper.Map<NoteDetailsVm>(entity);*/
+            {
 
-            return _mapper.Map<NoteDetailsVm>(entity);
+                if (request == null)
+                {
+                    throw new ArgumentNullException(nameof(request));
+                }
 
+                try
+                {
+                    var entity = await _dbContext.Notes
+                        .FirstOrDefaultAsync(note => note.Id == request.Id, cancellationToken);
 
+                    if (entity == null)
+                    {
+                       
+                        throw new NotFoundException(nameof(Note), request.Id);
+                    }
+
+                    if (entity.UserId != request.UserId)
+                    {
+                        throw new UnauthorizedAccessException("User is not authorized to access this note.");
+                    }
+
+                    
+                    return _mapper.Map<NoteDetailsVm>(entity);
+                }
+                catch (Exception ex)
+                {
+                    
+                    throw new ApplicationException("Error occurred while retrieving note details.", ex);
+                }
+            }
         }
     }
 }

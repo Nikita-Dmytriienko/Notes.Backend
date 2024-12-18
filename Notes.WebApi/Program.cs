@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using Notes.Persistence;
-using Notes.Application;
+
 
 namespace Notes.WebApi
 {
@@ -12,6 +12,7 @@ namespace Notes.WebApi
         public static void Main(string[] args)
         {
             var host = CreateHostBuilder(args).Build();
+
 
             using (var scope = host.Services.CreateScope())
             {
