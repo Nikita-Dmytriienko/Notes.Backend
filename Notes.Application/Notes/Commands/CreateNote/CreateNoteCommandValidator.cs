@@ -11,10 +11,10 @@ namespace Notes.Application.Notes.Commands.CreateNote
     {
         public CreateNoteCommandValidator() 
         {
-            RuleFor(CreateNoteCommand =>
-            CreateNoteCommand.Title).NotEmpty().MaximumLength(255);
-            RuleFor(CreateNoteCommand =>
-            CreateNoteCommand.UserId).NotEqual(Guid.Empty);
+            RuleFor(createNoteCommand =>
+            createNoteCommand.Title).NotEmpty().MaximumLength(255);
+            RuleFor(createNoteCommand =>
+            createNoteCommand.UserId).NotEqual(Guid.Empty);
         }
     }
 }
